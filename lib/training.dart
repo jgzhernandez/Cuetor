@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'exercise1.dart';
+import 'exercise2.dart';
+import 'exercise3.dart';
+
+class TrainingPage extends StatelessWidget {
+  const TrainingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Training Exercises'),
+      ),
+      body: ListView(
+        children: [
+          ExerciseCard(
+            title: 'Exercise 1',
+            description: 'Description of Exercise 1',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Exercise1(),
+                ),
+              );
+            },
+          ),
+          ExerciseCard(
+            title: 'Exercise 2',
+            description: 'Description of Exercise 2',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Exercise2(),
+                ),
+              );
+            },
+          ),
+          ExerciseCard(
+            title: 'Exercise 3',
+            description: 'Description of Exercise 3',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Exercise3(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExerciseCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final VoidCallback onTap;
+
+  const ExerciseCard({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        color: Colors.blueGrey[900],
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 25),
+              Text(
+                description,
+                style: const TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ExercisePage extends StatelessWidget {
+  final int exerciseId;
+
+  const ExercisePage({super.key, required this.exerciseId});
+
+  @override
+  Widget build(BuildContext context) {
+    // Customize this page based on the exerciseId
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Exercise $exerciseId'),
+      ),
+      body: Center(
+        child: Text('Exercise $exerciseId'),
+      ),
+    );
+  }
+}
