@@ -1,8 +1,7 @@
-import 'package:cuetor/training.dart';
-import 'package:cuetor/usersettings.dart';
-import 'package:cuetor/userstats.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'package:cuetor/training.dart';
+import 'package:cuetor/userstats.dart';
+import 'package:cuetor/usersettings.dart';
 
 class CueTorHomePage extends StatefulWidget {
   const CueTorHomePage({super.key, required this.title});
@@ -14,11 +13,11 @@ class CueTorHomePage extends StatefulWidget {
 }
 
 class _CueTorHomePageState extends State<CueTorHomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    TrainingPage(),
     StatisticsPage(),
+    TrainingPage(),
     SettingsPage(),
   ];
 
@@ -42,12 +41,12 @@ class _CueTorHomePageState extends State<CueTorHomePage> {
         backgroundColor: Colors.blueGrey[900],
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Training',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.analytics),
             label: 'Statistics',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Training',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

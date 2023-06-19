@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'home.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     const CueTor(),
   );
@@ -15,6 +16,7 @@ class CueTor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'CueTor',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -23,8 +25,3 @@ class CueTor extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
