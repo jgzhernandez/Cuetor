@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'exercise1.dart';
-import 'exercise2.dart';
-import 'exercise3.dart';
+import 'exercises/exercise1.dart';
+import 'exercises/exercise2.dart';
+import 'exercises/exercise3.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({super.key});

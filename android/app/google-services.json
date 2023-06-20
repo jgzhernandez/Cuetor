@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "964337865434",
+    "firebase_url": "https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cuetor-761aa",
+    "storage_bucket": "cuetor-761aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964337865434:android:a061d975d149891db58be3",
+        "android_client_info": {
+          "package_name": "com.example.cuetorback"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZFu2cjE3egfjxhj8wlteEkAOCwtFxbng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

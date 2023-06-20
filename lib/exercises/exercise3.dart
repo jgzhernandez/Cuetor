@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 
 // late List<CameraDescription> _cameras;
 
-class Exercise1 extends StatefulWidget {
-  const Exercise1({super.key});
+// Wagon Wheel
+class Exercise3 extends StatefulWidget {
+  const Exercise3({super.key});
 
   @override
-  State<Exercise1> createState() => _Exercise1State();
+  State<Exercise3> createState() => _Exercise3State();
 }
 
-class _Exercise1State extends State<Exercise1> {
+class _Exercise3State extends State<Exercise3> {
   late CameraController _cameraController;
   bool _isLoading = true;
   bool _isRecording = false;
