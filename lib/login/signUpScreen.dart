@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import '../home.dart';
-// import 'welcome.dart';
 import 'signInScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -19,7 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _userNameController = TextEditingController();
   bool _isLoading = false;
 
-    void _signup() async {
+  void _signup() async {
     setState(() {
       _isLoading = true;
     });
@@ -30,21 +28,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
       );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Account created successfully!')),
-        );
+      );
 
 //      DatabaseReference ref = FirebaseDatabase.instance.ref("users");
- //     await ref.set({
- //       "userName": _userNameController.text,
- //       "uid": FirebaseAuth.instance.currentUser?.uid
- //     });
+      //     await ref.set({
+      //       "userName": _userNameController.text,
+      //       "uid": FirebaseAuth.instance.currentUser?.uid
+      //     });
 
-      Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SignInScreen()));
-      
-
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SignInScreen()));
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred! ${e.code}')));
+          SnackBar(content: Text('An error occurred! ${e.code}')));
     } finally {
       setState(() {
         _isLoading = false;
@@ -55,90 +51,112 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email.';
-                  }
-                  return null;
-                },
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 60.0),
+              child: Center(
+                child: SizedBox(
+                    width: 200,
+                    height: 150,
+                    /*decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(50.0)),*/
+                    child: Image.asset('images/logo.png')),
               ),
-              const SizedBox(height:16),
-              TextFormField(
-                controller: _userNameController,
-                decoration: const InputDecoration(labelText: 'Username'),
-                //keyboardType: TextInputType.userName,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username.';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password.';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : () {
-                      if (_formKey.currentState!.validate()) {
-                        _signup();
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(labelText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email.';
                         }
-                    },
-                    child: _isLoading
-                        ? const CircularProgressIndicator()
-                        : const Text('Sign Up'),
-                  ),
-                  //SignInButton()   
-                ],
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _userNameController,
+                      decoration: const InputDecoration(labelText: 'Username'),
+                      //keyboardType: TextInputType.userName,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your username.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(labelText: 'Password'),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password.';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: _isLoading
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _signup();
+                                  }
+                                },
+                          child: _isLoading
+                              ? const CircularProgressIndicator()
+                              : const Text('Sign Up'),
+                        ),
+                        //SignInButton()
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    SignInButton()
+                  ],
+                ),
               ),
-              const SizedBox(height:10),
-              SignInButton()   
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
-    Row SignInButton() {
+
+  Row SignInButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text("Already Have an account? "),
         GestureDetector(
-          onTap: () {
-            Navigator.push(context, 
-              MaterialPageRoute(builder: (context) => const SignInScreen()));
-          },
-          child: const Text("Sign In", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)
-        )
-
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInScreen()));
+            },
+            child: const Text(
+              "Sign In",
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            ))
       ],
     );
-
   }
 }

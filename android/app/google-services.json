@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:964337865434:android:ce90ffcebfa5d0e1b58be3",
+        "android_client_info": {
+          "package_name": "com.cuetorucl.cuetor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZFu2cjE3egfjxhj8wlteEkAOCwtFxbng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:964337865434:android:a061d975d149891db58be3",
         "android_client_info": {
           "package_name": "com.example.cuetorback"

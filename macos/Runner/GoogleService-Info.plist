@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD-jX0zK9lZuFufSz_fHd_c3OUOfollyvc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>964337865434</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.cuetorucl.cuetor</string>
+	<key>PROJECT_ID</key>
+	<string>cuetor-761aa</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cuetor-761aa.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:964337865434:ios:30f977c70f9ffd4ab58be3</string>
+	<key>DATABASE_URL</key>
+	<string>https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
