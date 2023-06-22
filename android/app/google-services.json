@@ -30,6 +30,13 @@
             {
               "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cuetorucl.cuetor"
+              }
             }
           ]
         }
@@ -59,6 +66,13 @@
             {
               "client_id": "964337865434-m8hpuse8e1vm3tpghmjbi37nq6g07qiv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cuetorucl.cuetor"
+              }
             }
           ]
         }

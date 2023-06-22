@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -22,31 +23,50 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   Future _initVideoPlayer() async {
-    _videoPlayerController = VideoPlayerController.file(File(widget.filePath));
+    final videoFile = File(widget.filePath);
+    _videoPlayerController = VideoPlayerController.file(videoFile);
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
     await _videoPlayerController.play();
   }
 
+  Future uploadFile()  async {
+    final videoFile = File(widget.filePath);
+    final path = 'files/stop_shot/${DateTime.now()}.mp4';
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    ref.putFile(videoFile);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Preview'),
-        elevation: 0,
-        backgroundColor: Colors.black26,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: () {
-              //TODO: route file to database
-              if (kDebugMode) {
-                print('do something with the file');
-              }
-            },
-          )
-        ],
-      ),
+      bottomNavigationBar: BottomAppBar(
+          elevation: 0,
+          color: Colors.black26,
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print('delete file');
+                  }
+                  Navigator.of(context).pop();
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.check),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print('do something with the file');
+                  }
+                  uploadFile();
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          )),
       extendBodyBehindAppBar: true,
       body: FutureBuilder(
         future: _initVideoPlayer(),

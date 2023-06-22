@@ -31,6 +31,8 @@ class _CueTorHomePageState extends State<CueTorHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // leading: Image.asset('images/logo.png', fit: BoxFit.contain, height: 32),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueGrey[900],
         title: const Center(
           child: Text('CueTor'),
@@ -41,8 +43,8 @@ class _CueTorHomePageState extends State<CueTorHomePage> {
         backgroundColor: Colors.blueGrey[900],
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            label: 'Statistics',
+            icon: Icon(Icons.account_box),
+            label: 'Profile',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),

@@ -1,3 +1,4 @@
+import 'package:cuetor/videoGalleryPage.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -18,8 +19,20 @@ class _StatisticsPageState extends State<StatisticsPage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(20),
-          child: const Column(
+          child: Column(
             children: [
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const VideoGalleryPage(),
+                    ),
+                  );
+                },
+                title: Text('Total Videos'),
+                trailing: Text('0'),
+              ),
               SizedBox(height: 10),
             ],
           ),
