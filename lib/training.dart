@@ -106,21 +106,21 @@ class ExerciseCard extends StatelessWidget {
   }
 }
 
-class ExercisePage extends StatelessWidget {
-  final int exerciseId;
-
-  const ExercisePage({super.key, required this.exerciseId});
-
-  @override
-  Widget build(BuildContext context) {
-    // Customize this page based on the exerciseId
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Exercise $exerciseId'),
-      ),
-      body: Center(
-        child: Text('Exercise $exerciseId'),
-      ),
-    );
-  }
-}
+// class ExercisePage extends StatelessWidget {
+//   final int exerciseId;
+//
+//   const ExercisePage({super.key, required this.exerciseId});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // Customize this page based on the exerciseId
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Exercise $exerciseId'),
+//       ),
+//       body: Center(
+//         child: Text('Exercise $exerciseId'),
+//       ),
+//     );
+//   }
+// }

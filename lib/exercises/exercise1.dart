@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import '../videoPage.dart';
+import '../videoPreviewPage.dart';
 
 // late List<CameraDescription> _cameras;
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _videoPlayerController;
 
+
   @override
   void dispose() {
     _videoPlayerController.dispose();
@@ -31,11 +33,18 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   Future uploadFile()  async {
+    UploadTask? uploadTask;
+
     final videoFile = File(widget.filePath);
     final path = 'files/stop_shot/${DateTime.now()}.mp4';
-
     final ref = FirebaseStorage.instance.ref().child(path);
-    ref.putFile(videoFile);
+    uploadTask = ref.putFile(videoFile);
+    final snapshot = await uploadTask.whenComplete(() {});
+    final downloadURL = await snapshot.ref.getDownloadURL();
+    await FirebaseFirestore.instance.collection('videos').add({
+      'url': downloadURL,
+      'title': '${DateTime.now()}.mp4',
+    });
   }
 
   @override
@@ -45,6 +54,7 @@ class _VideoPageState extends State<VideoPage> {
           elevation: 0,
           color: Colors.black26,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.delete),
