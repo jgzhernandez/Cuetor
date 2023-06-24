@@ -1,7 +1,10 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'signInScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../home.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -30,14 +33,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         SnackBar(content: Text('Account created successfully!')),
       );
 
-//      DatabaseReference ref = FirebaseDatabase.instance.ref("users");
-      //     await ref.set({
-      //       "userName": _userNameController.text,
-      //       "uid": FirebaseAuth.instance.currentUser?.uid
-      //     });
+      var ref = FirebaseFirestore.instance.collection("users");
+      var newUser = ref.doc(FirebaseAuth.instance.currentUser?.uid);
+
+      var data = {
+             "userName": _userNameController.text,
+             "uid": FirebaseAuth.instance.currentUser?.uid,
+             "email": _emailController.text
+           };
+      newUser.set(data);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("userName", _userNameController.text);
+      prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignInScreen()));
+          context, MaterialPageRoute(builder: (context) => const CueTorHomePage(title: 'CueTor: Billiards Trainer')));
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('An error occurred! ${e.code}')));

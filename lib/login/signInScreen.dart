@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../home.dart';
 import 'signUpScreen.dart';
 import 'passwordResetScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -26,6 +28,16 @@ class _SignInScreenState extends State<SignInScreen> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
+      FirebaseFirestore.instance.collection("users").where("uid", isEqualTo: (FirebaseAuth.instance.currentUser!.uid)).get().then((QuerySnapshot) {
+        for (var docSnapshot in QuerySnapshot.docs){
+          String snrm = docSnapshot[2];
+          prefs.setString("userName", snrm);
+        }
+      }) ;
+
       Navigator.push(
           context,
           MaterialPageRoute(

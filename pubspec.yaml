@@ -20,8 +20,8 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.1
+  shared_preferences: ^2.1.2
   firebase_storage: ^11.2.3
-
 
 
 dev_dependencies:

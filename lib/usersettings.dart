@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login/signInScreen.dart';
 
 class SettingsPage extends StatefulWidget{
@@ -48,12 +49,15 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             title: const Text('Logout'),
             leading: const Icon(Icons.logout),
-            onTap: () {
-              FirebaseAuth.instance.signOut();
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.clear();
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const SignInScreen()),
-                (route) => false,
+                MaterialPageRoute(
+                  builder: (context) => const SignInScreen()),
+                  (route) => false,
               );
             },
           ),
