@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home.dart';
 import 'signUpScreen.dart';
 import 'passwordResetScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -19,6 +19,23 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
+  Future<void> getLandingPage() async {
+    StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData && (!snapshot.data!.isAnonymous)) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CueTorHomePage(
+                    title: 'CueTor: Billiards Trainer',
+                  )));
+        }
+        return Scaffold();
+      },
+    );
+  }
+
   void _login() async {
     setState(() {
       _isLoading = true;
@@ -28,7 +45,6 @@ class _SignInScreenState extends State<SignInScreen> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
       FirebaseFirestore.instance.collection("users").where("uid", isEqualTo: (FirebaseAuth.instance.currentUser!.uid)).get().then((QuerySnapshot) {
@@ -37,7 +53,6 @@ class _SignInScreenState extends State<SignInScreen> {
           prefs.setString("userName", snrm);
         }
       }) ;
-
       Navigator.push(
           context,
           MaterialPageRoute(
