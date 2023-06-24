@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuetor/videoGallery/stopShotVideoGalleryPage.dart';
 import 'package:flutter/material.dart';
 
@@ -29,8 +30,9 @@ class _StatisticsPageState extends State<StatisticsPage> {
               //     style: TextStyle(fontSize: 30),
               //   ),
               // ),
-              const Text('Stop Shot Videos'),
+              const Text('Videos'),
               ListTile(
+                title: const Text('Stop Shot Videos'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -39,7 +41,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                     ),
                   );
                 },
-                title: const Text('Stop Shot Videos: '),
+
                 // trailing: Text('0'),
               ),
               // SizedBox(height: 10),

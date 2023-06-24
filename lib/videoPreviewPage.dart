@@ -41,7 +41,7 @@ class _VideoPageState extends State<VideoPage> {
     uploadTask = ref.putFile(videoFile);
     final snapshot = await uploadTask.whenComplete(() {});
     final downloadURL = await snapshot.ref.getDownloadURL();
-    await FirebaseFirestore.instance.collection('videos').add({
+    await FirebaseFirestore.instance.collection('stop_shot_videos').add({
       'url': downloadURL,
       'title': '${DateTime.now()}.mp4',
     });
