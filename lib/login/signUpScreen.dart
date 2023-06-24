@@ -15,9 +15,9 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _isLoading = false;
 
   void _signup() async {

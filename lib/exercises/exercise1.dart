@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import '../videoPreviewPage.dart';
+
 // late List<CameraDescription> _cameras;
 
 //Stop Shot
@@ -28,13 +30,13 @@ class _Exercise1State extends State<Exercise1> {
 
   _recordVideo() async {
     if (_isRecording) {
-      // final file = await _cameraController.stopVideoRecording();
+      final file = await _cameraController.stopVideoRecording();
       setState(() => _isRecording = false);
-      // final route = MaterialPageRoute(
-      //   fullscreenDialog: true,
-      //   builder: (_) => VideoPage(filePath: file.path),
-      // );
-      // Navigator.push(context, route);
+      final route = MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => VideoPage(filePath: file.path),
+      );
+      Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();

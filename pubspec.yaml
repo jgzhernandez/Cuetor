@@ -14,12 +14,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   camera: ^0.10.5+2
+  video_player: ^2.6.1
   tflite_flutter: ^0.10.1
   permission_handler: ^10.3.0
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.1
   shared_preferences: ^2.1.2
+  firebase_storage: ^11.2.3
+
 
 dev_dependencies:
   flutter_test:

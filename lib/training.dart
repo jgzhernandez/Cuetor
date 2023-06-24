@@ -10,12 +10,13 @@ class TrainingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Training Exercises'),
       ),
       body: ListView(
         children: [
           ExerciseCard(
-            title: 'Exercise 1',
+            title: 'Stop Shot Exercise',
             description: 'Description of Exercise 1',
             onTap: () {
               Navigator.push(
@@ -27,7 +28,7 @@ class TrainingPage extends StatelessWidget {
             },
           ),
           ExerciseCard(
-            title: 'Exercise 2',
+            title: 'Ball Pocketing Exercise',
             description: 'Description of Exercise 2',
             onTap: () {
               Navigator.push(
@@ -39,7 +40,7 @@ class TrainingPage extends StatelessWidget {
             },
           ),
           ExerciseCard(
-            title: 'Exercise 3',
+            title: 'Wagon Wheel Exercise',
             description: 'Description of Exercise 3',
             onTap: () {
               Navigator.push(
@@ -105,21 +106,21 @@ class ExerciseCard extends StatelessWidget {
   }
 }
 
-class ExercisePage extends StatelessWidget {
-  final int exerciseId;
-
-  const ExercisePage({super.key, required this.exerciseId});
-
-  @override
-  Widget build(BuildContext context) {
-    // Customize this page based on the exerciseId
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Exercise $exerciseId'),
-      ),
-      body: Center(
-        child: Text('Exercise $exerciseId'),
-      ),
-    );
-  }
-}
+// class ExercisePage extends StatelessWidget {
+//   final int exerciseId;
+//
+//   const ExercisePage({super.key, required this.exerciseId});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // Customize this page based on the exerciseId
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Exercise $exerciseId'),
+//       ),
+//       body: Center(
+//         child: Text('Exercise $exerciseId'),
+//       ),
+//     );
+//   }
+// }
