@@ -5,16 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPage extends StatefulWidget {
-  const VideoPage({Key? key, required this.filePath}) : super(key: key);
+class VideoPreview extends StatefulWidget {
+  const VideoPreview({Key? key, required this.filePath, required this.folder}) : super(key: key);
 
   final String filePath;
+  final String folder;
 
   @override
-  State<VideoPage> createState() => _VideoPageState();
+  State<VideoPreview> createState() => _VideoPreviewState();
 }
 
-class _VideoPageState extends State<VideoPage> {
+class _VideoPreviewState extends State<VideoPreview> {
   late VideoPlayerController _videoPlayerController;
 
 
@@ -36,12 +37,12 @@ class _VideoPageState extends State<VideoPage> {
     UploadTask? uploadTask;
 
     final videoFile = File(widget.filePath);
-    final path = 'files/stop_shot/${DateTime.now()}.mp4';
+    final path = 'files/videos/${widget.folder}/${DateTime.now()}.mp4';
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(videoFile);
     final snapshot = await uploadTask.whenComplete(() {});
     final downloadURL = await snapshot.ref.getDownloadURL();
-    await FirebaseFirestore.instance.collection('stop_shot_videos').add({
+    await FirebaseFirestore.instance.collection('${widget.folder}_videos').add({
       'url': downloadURL,
       'title': '${DateTime.now()}.mp4',
     });

@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cuetor/videoGallery/stopShotVideoGalleryPage.dart';
+import 'package:cuetor/videoGallery/stopShotVideoGallery.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsPage extends StatefulWidget {
@@ -22,14 +21,6 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // const SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   padding: EdgeInsets.all(20),
-              //   child: Text(
-              //     'Profile',
-              //     style: TextStyle(fontSize: 30),
-              //   ),
-              // ),
               const Text('Videos'),
               ListTile(
                 title: const Text('Stop Shot Videos'),
@@ -37,14 +28,33 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const StopShotVideoGalleryPage(),
+                      builder: (context) => const StopShotVideoGallery(),
                     ),
                   );
                 },
-
-                // trailing: Text('0'),
               ),
-              // SizedBox(height: 10),
+              ListTile(
+                title: const Text('Ball Pocketing Videos'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StopShotVideoGallery(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Wagon Wheel Videos'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StopShotVideoGallery(),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

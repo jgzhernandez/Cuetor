@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-// late List<CameraDescription> _cameras;
+import '../videopreview.dart';
 
 // Wagon Wheel
 class Exercise3 extends StatefulWidget {
@@ -28,13 +27,13 @@ class _Exercise3State extends State<Exercise3> {
 
   _recordVideo() async {
     if (_isRecording) {
-      // final file = await _cameraController.stopVideoRecording();
+      final file = await _cameraController.stopVideoRecording();
       setState(() => _isRecording = false);
-      // final route = MaterialPageRoute(
-      //   fullscreenDialog: true,
-      //   builder: (_) => VideoPage(filePath: file.path),
-      // );
-      // Navigator.push(context, route);
+      final route = MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => VideoPreview(filePath: file.path, folder: 'wagon_wheel',),
+      );
+      Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();
@@ -81,8 +80,5 @@ class _Exercise3State extends State<Exercise3> {
         ),
       );
     }
-    // return MaterialApp(
-    //   home: CameraPreview(_cameraController),
-    // );
   }
 }

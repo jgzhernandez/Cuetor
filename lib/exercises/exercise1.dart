@@ -1,9 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-
-import '../videoPreviewPage.dart';
-
-// late List<CameraDescription> _cameras;
+import '../videopreview.dart';
 
 //Stop Shot
 class Exercise1 extends StatefulWidget {
@@ -34,7 +31,7 @@ class _Exercise1State extends State<Exercise1> {
       setState(() => _isRecording = false);
       final route = MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (_) => VideoPage(filePath: file.path),
+        builder: (_) => VideoPreview(filePath: file.path, folder: 'stop_shot',),
       );
       Navigator.push(context, route);
     } else {
@@ -83,8 +80,5 @@ class _Exercise1State extends State<Exercise1> {
         ),
       );
     }
-    // return MaterialApp(
-    //   home: CameraPreview(_cameraController),
-    // );
   }
 }

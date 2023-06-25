@@ -2,18 +2,18 @@ import 'package:cuetor/videoGallery/videoPlayer.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class StopShotVideoGalleryPage extends StatelessWidget {
-  const StopShotVideoGalleryPage({super.key});
+class BallPocketingVideoGallery extends StatelessWidget {
+  const BallPocketingVideoGallery({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stop Shot Videos'),
+        title: const Text('Ball Pocketing Videos'),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
-              .collection('videos')
+              .collection('ball_pocketing_videos')
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
