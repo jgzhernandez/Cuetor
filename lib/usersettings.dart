@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login/signInScreen.dart';
 
-class SettingsPage extends StatefulWidget{
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
@@ -23,41 +23,41 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('User Settings'),
-            leading: const Icon(Icons.person),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const UserSettingsPage(),
-              //   ),
-              // );
-            },
-          ),
-          ListTile(
-            title: const Text('App Settings'),
-            leading: const Icon(Icons.settings),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const AppSettingsPage(),
-              //   ),
-              // );
-            },
-          ),
-          ListTile(
             title: const Text('Logout'),
             leading: const Icon(Icons.logout),
             onTap: () async {
-              await FirebaseAuth.instance.signOut();
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.clear();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SignInScreen()),
-                  (route) => false,
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Confirm Logout'),
+                    content: const Text('Are you sure you want to log out?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Logout'),
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.clear();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignInScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
             },
           ),
