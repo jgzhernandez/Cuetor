@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
 // Ball Pocketing
-class Exercise2 extends StatefulWidget {
-  const Exercise2({super.key});
+class BallPocketing extends StatefulWidget {
+  const BallPocketing({super.key});
 
   @override
-  State<Exercise2> createState() => _Exercise2State();
+  State<BallPocketing> createState() => _BallPocketingState();
 }
 
-class _Exercise2State extends State<Exercise2> {
+class _BallPocketingState extends State<BallPocketing> {
   late CameraController _cameraController;
   bool _isLoading = true;
   bool _isRecording = false;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'exercises/exercise1.dart';
-import 'exercises/exercise2.dart';
-import 'exercises/exercise3.dart';
+import 'exercises/stopshot.dart';
+import 'exercises/ballpocketing.dart';
+import 'exercises/wagonwheel.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({super.key});
@@ -19,36 +19,84 @@ class TrainingPage extends StatelessWidget {
             title: 'Stop Shot Exercise',
             description: 'Description of Exercise 1',
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Exercise1(),
-                ),
-              );
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text('Stop Shot Exercise'),
+                        content: const Text('Instructions and images'),
+                        actions: [
+                          TextButton(
+                              child: const Text('Back'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          TextButton(
+                              child: const Text('Continue'),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const StopShot()),
+                                );
+                              })
+                        ],
+                      ));
             },
           ),
           ExerciseCard(
             title: 'Ball Pocketing Exercise',
             description: 'Description of Exercise 2',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Exercise2(),
-                ),
-              );
+            onTap: ()  {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Ball Pocketing Exercise'),
+                    content: const Text('Instructions and images'),
+                    actions: [
+                      TextButton(
+                          child: const Text('Back'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                      TextButton(
+                          child: const Text('Continue'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BallPocketing()),
+                            );
+                          })
+                    ],
+                  ));
             },
           ),
           ExerciseCard(
             title: 'Wagon Wheel Exercise',
             description: 'Description of Exercise 3',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Exercise3(),
-                ),
-              );
+            onTap: ()  {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Wagon Wheel Exercise'),
+                    content: const Text('Instructions and images'),
+                    actions: [
+                      TextButton(
+                          child: const Text('Back'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                      TextButton(
+                          child: const Text('Continue'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const WagonWheel()),
+                            );
+                          })
+                    ],
+                  ));
             },
           ),
         ],
