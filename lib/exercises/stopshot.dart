@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:cuetor/exercises/polygonpainter.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
@@ -36,6 +37,7 @@ class _StopShotState extends State<StopShot> {
         builder: (_) => VideoPreview(
           filePath: file.path,
           folder: 'stop_shot',
+          polygonVertices: _polygonVertices,
         ),
       );
       Navigator.push(context, route);
@@ -223,31 +225,3 @@ class _StopShotState extends State<StopShot> {
   }
 }
 
-class PolygonPainter extends CustomPainter {
-  final List<Offset> vertices;
-
-  PolygonPainter({required this.vertices});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0;
-
-    if (vertices.length > 0) {
-      final path = Path();
-      path.moveTo(vertices[0].dx, vertices[0].dy);
-      for (int i = 1; i < vertices.length; i++) {
-        path.lineTo(vertices[i].dx, vertices[i].dy);
-      }
-      path.close();
-      canvas.drawPath(path, paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
-}

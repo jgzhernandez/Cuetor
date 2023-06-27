@@ -5,11 +5,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import 'exercises/polygonpainter.dart';
+
 class VideoPreview extends StatefulWidget {
-  const VideoPreview({Key? key, required this.filePath, required this.folder}) : super(key: key);
+  const VideoPreview({
+    Key? key,
+    required this.filePath,
+    required this.folder,
+    required this.polygonVertices,
+  }) : super(key: key);
 
   final String filePath;
   final String folder;
+  final List<Offset> polygonVertices;
 
   @override
   State<VideoPreview> createState() => _VideoPreviewState();
@@ -85,7 +93,15 @@ class _VideoPreviewState extends State<VideoPreview> {
           if (state.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            return VideoPlayer(_videoPlayerController);
+            return Stack(
+              children: [
+                VideoPlayer(_videoPlayerController),
+                CustomPaint(
+                  painter: PolygonPainter(vertices: widget.polygonVertices),
+                  size: Size.infinite,
+                ),
+              ],
+            );
           }
         },
       ),
