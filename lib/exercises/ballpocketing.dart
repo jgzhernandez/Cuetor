@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:cuetor/exercises/polygonpainter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
@@ -38,6 +39,7 @@ class _BallPocketingState extends State<BallPocketing> {
           filePath: file.path,
           folder: 'ball_pocketing',
           polygonVertices: _polygonVertices,
+          apiUrl: '', //TODO: Add flask url
         ),
       );
       Navigator.push(context, route);
@@ -79,7 +81,9 @@ class _BallPocketingState extends State<BallPocketing> {
     if (_polygonVertices.length == 6) {
       // Send the coordinates to the Python code for further processing
       // Replace the print statement with your code to send the coordinates
-      print(_polygonVertices);
+      if (kDebugMode) {
+        print(_polygonVertices);
+      }
     } else {
       // Handle the case where the user didn't draw exactly 6 vertices
       showDialog(

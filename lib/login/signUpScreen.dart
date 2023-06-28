@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: _passwordController.text,
       );
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Account created successfully!')),
+        const SnackBar(content: Text('Account created successfully!')),
       );
 
       var ref = FirebaseFirestore.instance.collection("users");

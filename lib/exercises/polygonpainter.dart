@@ -13,7 +13,7 @@ class PolygonPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.0;
 
-    if (vertices.length > 0) {
+    if (vertices.isNotEmpty) {
       final path = Path();
       path.moveTo(vertices[0].dx, vertices[0].dy);
       for (int i = 1; i < vertices.length; i++) {

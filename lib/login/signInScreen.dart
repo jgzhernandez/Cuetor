@@ -31,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     title: 'CueTor: Billiards Trainer',
                   )));
         }
-        return Scaffold();
+        return const Scaffold();
       },
     );
   }
