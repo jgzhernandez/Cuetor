@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:cuetor/exercises/polygonpainter.dart';
+import 'package:path/path.dart' as path;
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
@@ -33,13 +36,57 @@ class _WagonWheelState extends State<WagonWheel> {
     if (_isRecording) {
       final file = await _cameraController.stopVideoRecording();
       setState(() => _isRecording = false);
+
+      // Create a multipart request
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://127.0.0.1:5000/wagon_wheel'),
+      );
+
+      // Attach the video file to the request
+      var videoFile = await http.MultipartFile.fromPath(
+        'video',
+        file.path,
+        filename: path.basename(file.path),
+      );
+      request.files.add(videoFile);
+
+      List<Map<String, dynamic>> coordinatesJson = _polygonVertices.map((offset) {
+        return {
+          'x': offset.dx,
+          'y': offset.dy,
+        };
+      }).toList();
+
+      // Convert the list of coordinates to a JSON string
+      String coordinatesJsonString = json.encode(coordinatesJson);
+
+      // Add the coordinates as a form field in the request
+      request.fields['coordinates'] = coordinatesJsonString;
+
+      // Send the request
+      var response = await request.send();
+
+      // Check the response
+      if (response.statusCode == 200) {
+        // Video processed successfully
+        if (kDebugMode) {
+          print('Video processed successfully');
+        }
+      } else {
+        // Error processing the video
+        if (kDebugMode) {
+          print('Error processing video: ${response.reasonPhrase}');
+        }
+      }
+
       final route = MaterialPageRoute(
         fullscreenDialog: true,
         builder: (_) => VideoPreview(
           filePath: file.path,
           folder: 'wagon_wheel',
           polygonVertices: _polygonVertices,
-          apiUrl: '', //TODO: Add flask url
+          // apiUrl: '', //TODO: Add flask url
         ),
       );
       Navigator.push(context, route);
