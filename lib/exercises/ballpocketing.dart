@@ -44,7 +44,7 @@ class _BallPocketingState extends State<BallPocketing> {
       );
       Navigator.push(context, route);
     } else {
-      if (_polygonVertices.length == 6) {
+      if (_polygonVertices.length == 4) {
         await _cameraController.prepareForVideoRecording();
         await _cameraController.startVideoRecording();
         setState(() => _isRecording = true);
@@ -54,7 +54,7 @@ class _BallPocketingState extends State<BallPocketing> {
           builder: (_) => AlertDialog(
             title: const Text('Invalid Polygon'),
             content: const Text(
-                'Please draw a polygon with exactly 6 vertices before recording.'),
+                'Please draw a polygon with exactly 4 vertices before recording.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
@@ -78,7 +78,7 @@ class _BallPocketingState extends State<BallPocketing> {
     setState(() {
       _isDrawingMode = false;
     });
-    if (_polygonVertices.length == 6) {
+    if (_polygonVertices.length == 4) {
       // Send the coordinates to the Python code for further processing
       // Replace the print statement with your code to send the coordinates
       if (kDebugMode) {
@@ -90,7 +90,7 @@ class _BallPocketingState extends State<BallPocketing> {
         context: context,
         builder: (_) => AlertDialog(
           title: const Text('Invalid Polygon'),
-          content: const Text('Please draw a polygon with exactly 6 vertices.'),
+          content: const Text('Please draw a polygon with exactly 4 vertices.'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -153,7 +153,7 @@ class _BallPocketingState extends State<BallPocketing> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Tap to add vertices (${_polygonVertices.length}/6)',
+                        'Tap to add vertices (${_polygonVertices.length}/4)',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
