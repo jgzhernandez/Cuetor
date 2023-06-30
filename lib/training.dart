@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'exercises/stopshot.dart';
 import 'exercises/ballpocketing.dart';
 import 'exercises/wagonwheel.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({super.key});
+
+  void _setLandscapeOrientation() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +23,7 @@ class TrainingPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          // Stop Shot
           ExerciseCard(
             title: 'Stop Shot Exercise',
             description: 'The Stop Shot Drill tests a player’s ability to execute a stun shot, wherein the cue ball stops near the object ball upon contact.',
@@ -42,6 +51,7 @@ class TrainingPage extends StatelessWidget {
                           TextButton(
                               child: const Text('Continue'),
                               onPressed: () {
+                                _setLandscapeOrientation();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -52,6 +62,7 @@ class TrainingPage extends StatelessWidget {
                       ));
             },
           ),
+          // Ball Pocketing
           ExerciseCard(
             title: 'Ball Pocketing Exercise',
             description: 'The Ball Pocketing Drill tests a player’s ability to make a variety of shots with varying angles and distances.',
@@ -77,6 +88,7 @@ class TrainingPage extends StatelessWidget {
                       TextButton(
                           child: const Text('Continue'),
                           onPressed: () {
+                            _setLandscapeOrientation();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -87,6 +99,7 @@ class TrainingPage extends StatelessWidget {
                   ));
             },
           ),
+          // Wagon Wheel
           ExerciseCard(
             title: 'Wagon Wheel Exercise',
             description: 'The Wagon Wheel Drill tests a player’s ability to control the cue ball around the table using basic knowledge of topspin and backspin. ',
@@ -107,7 +120,6 @@ class TrainingPage extends StatelessWidget {
                       ],
                     ),
 
-
                   actions: [
                     TextButton(
                             child: const Text('Back'),
@@ -117,6 +129,7 @@ class TrainingPage extends StatelessWidget {
                       TextButton(
                           child: const Text('Continue'),
                           onPressed: () {
+                            _setLandscapeOrientation();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -181,22 +194,3 @@ class ExerciseCard extends StatelessWidget {
     );
   }
 }
-
-// class ExercisePage extends StatelessWidget {
-//   final int exerciseId;
-//
-//   const ExercisePage({super.key, required this.exerciseId});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // Customize this page based on the exerciseId
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Exercise $exerciseId'),
-//       ),
-//       body: Center(
-//         child: Text('Exercise $exerciseId'),
-//       ),
-//     );
-//   }
-// }
