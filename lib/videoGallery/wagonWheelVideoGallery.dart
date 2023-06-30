@@ -2,7 +2,7 @@ import 'package:cuetor/videoGallery/videoPlayer.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class WagonWheelVideoGallery extends StatefulWidget {
   const WagonWheelVideoGallery({super.key});
 
@@ -25,7 +25,7 @@ class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('wagon_wheel_videos')
+            .collection('wagon_wheel_videos').where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
