@@ -82,6 +82,12 @@ class _StopShotState extends State<StopShot> {
           alignment: Alignment.bottomCenter,
           children: [
             CameraPreview(_cameraController),
+            Positioned.fill(
+              child: Image.asset(
+                'images/table_template.png',
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(25),
               child: FloatingActionButton(
