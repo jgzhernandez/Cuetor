@@ -115,6 +115,7 @@ class _VideoPreviewState extends State<VideoPreview> {
             ),
             (route) => false,
           );
+          _videoPlayerController.dispose();
         },
         child: const Icon(Icons.check),
       ),

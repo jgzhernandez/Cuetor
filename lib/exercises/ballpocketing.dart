@@ -26,7 +26,7 @@ class _BallPocketingState extends State<BallPocketing> {
     final cameras = await availableCameras();
     final back = cameras.firstWhere(
         (camera) => camera.lensDirection == CameraLensDirection.back);
-    _cameraController = CameraController(back, ResolutionPreset.max);
+    _cameraController = CameraController(back, ResolutionPreset.veryHigh);
     await _cameraController.initialize();
     await _cameraController.lockCaptureOrientation();
     setState(() => _isLoading = false);
