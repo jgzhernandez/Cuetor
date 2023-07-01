@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
-// Stop Shot
 class StopShot extends StatefulWidget {
   const StopShot({super.key});
 
@@ -26,7 +25,7 @@ class _StopShotState extends State<StopShot> {
   _initCamera() async {
     final cameras = await availableCameras();
     final back = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.back);
+        (camera) => camera.lensDirection == CameraLensDirection.back);
     _cameraController = CameraController(back, ResolutionPreset.max);
     await _cameraController.initialize();
     await _cameraController.lockCaptureOrientation();

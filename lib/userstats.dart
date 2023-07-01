@@ -23,11 +23,23 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              // User Profile
               const Text('Profile'),
               const Divider(),
+
+              // User Statistics
               const Text('Statistics'),
+              const Row(
+                children: [
+                  Divider(),
+                  Divider(),
+                ],
+              ),
               const Divider(),
+
+              // Video Gallery
               const Text('Videos'),
+              // Stop Shot
               ListTile(
                 title: const Text('Stop Shot Videos'),
                 onTap: () {
@@ -39,6 +51,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   );
                 },
               ),
+              // Ball Pocketing
               ListTile(
                 title: const Text('Ball Pocketing Videos'),
                 onTap: () {
@@ -50,6 +63,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   );
                 },
               ),
+              // Wagon Wheel
               ListTile(
                 title: const Text('Wagon Wheel Videos'),
                 onTap: () {

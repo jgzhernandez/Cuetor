@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
-// Wagon Wheel
 class WagonWheel extends StatefulWidget {
   const WagonWheel({super.key});
 
@@ -26,7 +25,7 @@ class _WagonWheelState extends State<WagonWheel> {
   _initCamera() async {
     final cameras = await availableCameras();
     final back = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.back);
+        (camera) => camera.lensDirection == CameraLensDirection.back);
     _cameraController = CameraController(back, ResolutionPreset.max);
     await _cameraController.initialize();
     await _cameraController.lockCaptureOrientation();

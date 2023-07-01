@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../videopreview.dart';
 
-// Ball Pocketing
 class BallPocketing extends StatefulWidget {
   const BallPocketing({super.key});
 
@@ -46,9 +45,9 @@ class _BallPocketingState extends State<BallPocketing> {
       );
       Navigator.push(context, route);
     } else {
-        await _cameraController.prepareForVideoRecording();
-        await _cameraController.startVideoRecording();
-        setState(() => _isRecording = true);
+      await _cameraController.prepareForVideoRecording();
+      await _cameraController.startVideoRecording();
+      setState(() => _isRecording = true);
     }
   }
 

@@ -32,9 +32,21 @@ class _VideoPreviewState extends State<VideoPreview> {
     ]);
   }
 
+  void _initVideoPlayer() {
+    _videoPlayerController = VideoPlayerController.file(File(widget.filePath))
+      ..initialize().then((_) {
+        setState(() {
+          _videoPlayerController.setLooping(true);
+          _videoPlayerController.play();
+        });
+      });
+  }
+
   Widget _buildVideoPlayer() {
-    if (_videoPlayerController != null && _videoPlayerController.value.isInitialized) {
-      return Center(child: AspectRatio(
+    if (_videoPlayerController != null &&
+        _videoPlayerController.value.isInitialized) {
+      return Center(
+          child: AspectRatio(
         aspectRatio: _videoPlayerController.value.aspectRatio,
         child: VideoPlayer(_videoPlayerController),
       ));
@@ -52,7 +64,8 @@ class _VideoPreviewState extends State<VideoPreview> {
 
     // Upload video to firebase
     final videoFile = File(widget.filePath);
-    final path = 'user/${FirebaseAuth.instance.currentUser?.uid}/files/videos/${widget.folder}/${DateTime.now()}.mp4';
+    final path =
+        'user/${FirebaseAuth.instance.currentUser?.uid}/files/videos/${widget.folder}/${DateTime.now()}.mp4';
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(videoFile);
     final snapshot = await uploadTask.whenComplete(() {});
@@ -65,17 +78,6 @@ class _VideoPreviewState extends State<VideoPreview> {
       'url': downloadURL,
       'title': '${DateTime.now()}.mp4',
     });
-  }
-
-  void _initVideoPlayer() {
-    _videoPlayerController = VideoPlayerController.file(File(widget.filePath))
-      ..initialize().then((_) {
-        setState(() {
-          // Once video is initialized, start playing it
-          _videoPlayerController.setLooping(true);
-          _videoPlayerController.play();
-        });
-      });
   }
 
   @override
@@ -106,9 +108,12 @@ class _VideoPreviewState extends State<VideoPreview> {
           // Save the polygon coordinates and perform necessary actions
           uploadFile();
           SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => const TrainingPage()),
+            MaterialPageRoute(
+              builder: (context) => const TrainingPage(),
+            ),
+            (route) => false,
           );
         },
         child: const Icon(Icons.check),

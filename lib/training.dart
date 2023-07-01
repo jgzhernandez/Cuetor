@@ -26,7 +26,8 @@ class TrainingPage extends StatelessWidget {
           // Stop Shot
           ExerciseCard(
             title: 'Stop Shot Exercise',
-            description: 'The Stop Shot Drill tests a player’s ability to execute a stun shot, wherein the cue ball stops near the object ball upon contact.',
+            description:
+                'The Stop Shot Drill tests a player’s ability to execute a stun shot, wherein the cue ball stops near the object ball upon contact.',
             onTap: () {
               showDialog(
                   context: context,
@@ -35,11 +36,11 @@ class TrainingPage extends StatelessWidget {
                         content: Wrap(
                           children: [
                             Image.asset('images/F2_1.png'),
-                            const Text('\n1. Place the object ball near the 1st diamond and the cue ball near the 3rd diamond to start the drill.\n'
+                            const Text(
+                                '\n1. Place the object ball near the 1st diamond and the cue ball near the 3rd diamond to start the drill.\n'
                                 '2. Pocket the object ball to the nearest corner pocket and make the cue ball stop within one ball radius of the object ball.\n'
                                 '3. There will be two shots per position. Move back 1 diamond after both shots.\n'
-                                '4. Repeat the process for all 10 shots. Your score will be the number of successful stop shots executed.'
-                                ),
+                                '4. Repeat the process for all 10 shots. Your score will be the number of successful stop shots executed.'),
                           ],
                         ),
                         actions: [
@@ -65,79 +66,82 @@ class TrainingPage extends StatelessWidget {
           // Ball Pocketing
           ExerciseCard(
             title: 'Ball Pocketing Exercise',
-            description: 'The Ball Pocketing Drill tests a player’s ability to make a variety of shots with varying angles and distances.',
-            onTap: ()  {
+            description:
+                'The Ball Pocketing Drill tests a player’s ability to make a variety of shots with varying angles and distances.',
+            onTap: () {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Ball Pocketing Exercise'),
-                    content: Wrap(
-                      children: [
-                        Image.asset('images/F6.png'),
-                        const Text('\n1. Follow the setup from the image below.\n'
-                            '2. Try to pocket the object ball for all 10 shots.\n'
-                            '3. Your score will be the number of successful makes'),
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                          child: const Text('Back'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          }),
-                      TextButton(
-                          child: const Text('Continue'),
-                          onPressed: () {
-                            _setLandscapeOrientation();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const BallPocketing()),
-                            );
-                          })
-                    ],
-                  ));
+                        title: const Text('Ball Pocketing Exercise'),
+                        content: Wrap(
+                          children: [
+                            Image.asset('images/F6.png'),
+                            const Text(
+                                '\n1. Follow the setup from the image below.\n'
+                                '2. Try to pocket the object ball for all 10 shots.\n'
+                                '3. Your score will be the number of successful makes'),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                              child: const Text('Back'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          TextButton(
+                              child: const Text('Continue'),
+                              onPressed: () {
+                                _setLandscapeOrientation();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BallPocketing()),
+                                );
+                              })
+                        ],
+                      ));
             },
           ),
           // Wagon Wheel
           ExerciseCard(
             title: 'Wagon Wheel Exercise',
-            description: 'The Wagon Wheel Drill tests a player’s ability to control the cue ball around the table using basic knowledge of topspin and backspin. ',
-            onTap: ()  {
+            description:
+                'The Wagon Wheel Drill tests a player’s ability to control the cue ball around the table using basic knowledge of topspin and backspin. ',
+            onTap: () {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: const Text('Wagon Wheel Exercise'),
-
-                    content: Wrap(
-                      children: [
-                        Image.asset('images/F7_1.png'),
-                        const Text('\n1. Place the object ball 1 diamond away from the center pocket.\n'
-                            '2. You have cue ball in hand for all 10 shots of the drill.\n'
-                            '3. You have 1 attempt to hit each of the 10 target locations with the cue ball, after pocketing the object ball in the center pocket.\n '
-                            '4. Go through the target locations in sequence.\n'
-                            '5. Each successful hit after pocketing the object ball correctly will be 1 point. You can get a total of 10 points for this drill. '),
-                      ],
-                    ),
-
-                  actions: [
-                    TextButton(
-                            child: const Text('Back'),
-                            onPressed: () {
-                            Navigator.of(context).pop();
-                          }),
-                      TextButton(
-                          child: const Text('Continue'),
-                          onPressed: () {
-                            _setLandscapeOrientation();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const WagonWheel()),
-                            );
-                          })
-                    ],
-                  ));
+                        title: const Text('Wagon Wheel Exercise'),
+                        content: Wrap(
+                          children: [
+                            Image.asset('images/F7_1.png'),
+                            const Text(
+                                '\n1. Place the object ball 1 diamond away from the center pocket.\n'
+                                '2. You have cue ball in hand for all 10 shots of the drill.\n'
+                                '3. You have 1 attempt to hit each of the 10 target locations with the cue ball, after pocketing the object ball in the center pocket.\n '
+                                '4. Go through the target locations in sequence.\n'
+                                '5. Each successful hit after pocketing the object ball correctly will be 1 point. You can get a total of 10 points for this drill. '),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                              child: const Text('Back'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          TextButton(
+                              child: const Text('Continue'),
+                              onPressed: () {
+                                _setLandscapeOrientation();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const WagonWheel()),
+                                );
+                              })
+                        ],
+                      ));
             },
           ),
         ],

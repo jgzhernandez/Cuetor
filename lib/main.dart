@@ -9,24 +9,24 @@ import '../home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-  runApp(
-    const CueTor(),
-  );
+    runApp(
+      const CueTor(),
+    );
   });
   _init();
 }
-
 
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final token = prefs.getString("userID");
   if (token != null) {
-    //print('Token: $token');
     Get.offAll(const CueTorHomePage(title: 'CueTor: Billiards Trainer'));
   } else {
     Get.offAll(const SignInScreen());
@@ -44,7 +44,6 @@ class CueTor extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      // home: const CueTorHomePage(title: 'CueTor: Billiards Trainer'),
       home: const SignInScreen(),
     );
   }
