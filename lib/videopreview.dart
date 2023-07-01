@@ -75,6 +75,7 @@ class _VideoPreviewState extends State<VideoPreview> {
 
     // Store metadata in firestore
     await FirebaseFirestore.instance.collection('${widget.folder}_videos').add({
+      'uid': FirebaseAuth.instance.currentUser?.uid,
       'url': downloadURL,
       'title': '${DateTime.now()}.mp4',
     });
@@ -106,6 +107,7 @@ class _VideoPreviewState extends State<VideoPreview> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Save the polygon coordinates and perform necessary actions
+          _videoPlayerController.pause();
           uploadFile();
           SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
           Navigator.pushAndRemoveUntil(
@@ -115,7 +117,6 @@ class _VideoPreviewState extends State<VideoPreview> {
             ),
             (route) => false,
           );
-          _videoPlayerController.dispose();
         },
         child: const Icon(Icons.check),
       ),
