@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import '../home.dart';
-// import 'signUpScreen.dart';
 import 'signInScreen.dart';
 
 class PasswordResetScreen extends StatefulWidget {
@@ -48,9 +46,6 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                 child: SizedBox(
                     width: 200,
                     height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset('images/logo.png')),
               ),
             ),
@@ -89,7 +84,6 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                               ? const CircularProgressIndicator()
                               : const Text('Send reset E-mail'),
                         ),
-                        //SignInButton()
                       ],
                     ),
                     const SizedBox(height: 10),
