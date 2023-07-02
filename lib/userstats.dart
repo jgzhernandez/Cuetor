@@ -56,6 +56,51 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
               // User Statistics
               const Text('Statistics'),
+               FutureBuilder<double>(
+                future: _getStopShotScore(),
+                builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    double accuracy = snapshot.data ?? 0.0;
+                    return ListTile(
+                      title: Text('Stop Shot Accuracy: $accuracy %'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const StopShotList(),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+              ListTile(
+                title: Text('Ball Pocketing Accuracy: %'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BallPocketingList(),
+                    ),
+                  );
+                }
+              ),
+              ListTile(
+                title: Text('Wagon Wheel Accuracy: %'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WagonWheelList(),
+                    ),
+                  );
+                }
+              ),
               const Divider(),
 
               // Video Gallery
