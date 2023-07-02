@@ -50,72 +50,17 @@ class _StatisticsPageState extends State<StatisticsPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
+              // User Profile
               const Text('Profile'),
               const Divider(),
+
+              // User Statistics
               const Text('Statistics'),
-//GET VALUE
-//               StreamBuilder<QuerySnapshot>(
-//         stream: FirebaseFirestore.instance
-//             .collection('stop_shot_results').where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-//             .snapshots(),
-//         builder: (context, snapshot) {
-//           final videos = snapshot.data?.docs;
-//           for (DocumentSnapshot docs in videos?){
-
-//           }
-
-// },),
-
-
-//GETVALUE
-              // Stop Shot Accuracy
-              FutureBuilder<double>(
-                future: _getStopShotScore(),
-                builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    double accuracy = snapshot.data ?? 0.0;
-                    return ListTile(
-                      title: Text('Stop Shot Accuracy: $accuracy %'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const StopShotList(),
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-              ListTile(
-                title: Text('Ball Pocketing Accuracy: %'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const BallPocketingList(),
-                    ),
-                  );
-                }
-              ),
-              ListTile(
-                title: Text('Wagon Wheel Accuracy: %'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WagonWheelList(),
-                    ),
-                  );
-                }
-              ),
               const Divider(),
+
+              // Video Gallery
               const Text('Videos'),
+              // Stop Shot
               ListTile(
                 title: const Text('Stop Shot Videos'),
                 onTap: () {
@@ -127,6 +72,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   );
                 },
               ),
+              // Ball Pocketing
               ListTile(
                 title: const Text('Ball Pocketing Videos'),
                 onTap: () {
@@ -138,6 +84,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                   );
                 },
               ),
+              // Wagon Wheel
               ListTile(
                 title: const Text('Wagon Wheel Videos'),
                 onTap: () {

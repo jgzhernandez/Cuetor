@@ -36,17 +36,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var newUser = ref.doc(FirebaseAuth.instance.currentUser?.uid);
 
       var data = {
-             "userName": _userNameController.text,
-             "uid": FirebaseAuth.instance.currentUser?.uid,
-             "email": _emailController.text
-           };
+        "userName": _userNameController.text,
+        "uid": FirebaseAuth.instance.currentUser?.uid,
+        "email": _emailController.text
+      };
       newUser.set(data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("userName", _userNameController.text);
       prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const CueTorHomePage(title: 'CueTor: Billiards Trainer')));
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  const CueTorHomePage(title: 'CueTor: Billiards Trainer')));
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('An error occurred! ${e.code}')));

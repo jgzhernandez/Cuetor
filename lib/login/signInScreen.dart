@@ -28,8 +28,8 @@ class _SignInScreenState extends State<SignInScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) => const CueTorHomePage(
-                    title: 'CueTor: Billiards Trainer',
-                  )));
+                        title: 'CueTor: Billiards Trainer',
+                      )));
         }
         return const Scaffold();
       },
@@ -47,12 +47,16 @@ class _SignInScreenState extends State<SignInScreen> {
       );
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
-      FirebaseFirestore.instance.collection("users").where("uid", isEqualTo: (FirebaseAuth.instance.currentUser!.uid)).get().then((QuerySnapshot) {
-        for (var docSnapshot in QuerySnapshot.docs){
+      FirebaseFirestore.instance
+          .collection("users")
+          .where("uid", isEqualTo: (FirebaseAuth.instance.currentUser!.uid))
+          .get()
+          .then((QuerySnapshot) {
+        for (var docSnapshot in QuerySnapshot.docs) {
           String snrm = docSnapshot[2];
           prefs.setString("userName", snrm);
         }
-      }) ;
+      });
       Navigator.push(
           context,
           MaterialPageRoute(

@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '964337865434',
     projectId: 'cuetor-761aa',
     authDomain: 'cuetor-761aa.firebaseapp.com',
-    databaseURL: 'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'cuetor-761aa.appspot.com',
   );
 
@@ -58,7 +59,8 @@ class DefaultFirebaseOptions {
     appId: '1:964337865434:android:ce90ffcebfa5d0e1b58be3',
     messagingSenderId: '964337865434',
     projectId: 'cuetor-761aa',
-    databaseURL: 'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'cuetor-761aa.appspot.com',
   );
 
@@ -67,9 +69,11 @@ class DefaultFirebaseOptions {
     appId: '1:964337865434:ios:30f977c70f9ffd4ab58be3',
     messagingSenderId: '964337865434',
     projectId: 'cuetor-761aa',
-    databaseURL: 'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'cuetor-761aa.appspot.com',
-    iosClientId: '964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com',
+    iosClientId:
+        '964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com',
     iosBundleId: 'com.cuetorucl.cuetor',
   );
 
@@ -78,9 +82,11 @@ class DefaultFirebaseOptions {
     appId: '1:964337865434:ios:30f977c70f9ffd4ab58be3',
     messagingSenderId: '964337865434',
     projectId: 'cuetor-761aa',
-    databaseURL: 'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
+    databaseURL:
+        'https://cuetor-761aa-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'cuetor-761aa.appspot.com',
-    iosClientId: '964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com',
+    iosClientId:
+        '964337865434-ft5ahf3u4dh7pp21ku5ah1olscau20gm.apps.googleusercontent.com',
     iosBundleId: 'com.cuetorucl.cuetor',
   );
 }
