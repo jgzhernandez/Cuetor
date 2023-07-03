@@ -47,7 +47,7 @@ class _CueTorHomePageState extends State<CueTorHomePage> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.fitness_center),
             label: 'Training',
           ),
           BottomNavigationBarItem(
