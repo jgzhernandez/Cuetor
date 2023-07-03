@@ -24,6 +24,29 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: [
           ListTile(
+            title: const Text('About'),
+            leading: const Icon(Icons.info),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AboutDialog(
+                  applicationName: 'CueTor',
+                  applicationVersion: '1.0.0',
+                  applicationIcon: Image.asset('images/logo.png',
+                      height: 48, width: 48, fit: BoxFit.contain),
+                  children: const [
+                    Text(
+                        'CueTor is a billiards training app that uses computer vision through YOLOv5.'
+                        '\n\nThis app was developed by the following students of the University of the Philippines Diliman:'
+                        '\n -Jared Arbolado'
+                        '\n -Jett Hernandez'
+                        '\n -Kobe Rivera'),
+                  ],
+                ),
+              );
+            },
+          ),
+          ListTile(
             title: const Text('Logout'),
             leading: const Icon(Icons.logout),
             onTap: () async {
