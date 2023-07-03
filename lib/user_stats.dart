@@ -21,6 +21,7 @@ Future<double> _getScore(String collection) async {
   await FirebaseFirestore.instance
       .collection('${collection}_results')
       .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      .limit(10)
       .get()
       .then((QuerySnapshot query) {
     for (var doc in query.docs) {
@@ -39,30 +40,30 @@ Future<String> _getGrade() async {
   var stopShotAcc = await _getScore('stop_shot');
   var ballPocketingAcc = await _getScore('ball_pocketing');
   var wagonWheelAcc = await _getScore('wagon_wheel');
-  var totalAccuracy = stopShotAcc + ballPocketingAcc + wagonWheelAcc;
-  String grade = 'ooo';
+  var totalacc = stopShotAcc + ballPocketingAcc + wagonWheelAcc;
+  String grade='Null';
 
-  if (totalAccuracy <= 75) {
+  if (totalacc <= 75) {
     String grade = 'D';
     return grade;
   }
-  if (totalAccuracy >= 76 && totalAccuracy <= 150) {
+  if (totalacc >= 76 && totalacc <= 150){
     String grade = 'C';
     return grade;
   }
-  if (totalAccuracy >= 151 && totalAccuracy <= 225) {
-    String grade = 'B';
+  if (totalacc >= 151 && totalacc <= 225){
+    String grade ='B';
     return grade;
   }
-  if (totalAccuracy >= 226) {
+  if (totalacc >= 226){
     String grade = 'A';
     return grade;
   }
-  return grade;
-}
+ return grade;
+ }
 
  Future<String> _getUserName() async {
-  String username = 'l';
+  String username = 'Null';
   await FirebaseFirestore.instance
     .collection('users')
     .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
@@ -80,11 +81,11 @@ class _StatisticsPageState extends State<StatisticsPage> {
   @override
   void initState() {
     super.initState();
-    var stopShotAcc = _getScore('stop_shot');
-    var ballPocketingAcc = _getScore('ball_pocketing');
-    var wagonWheelAcc = _getScore('wagon_wheel');
-    var userGrade = _getGrade();
-    var userName = _getUserName();
+    var stop_shot_acc = _getScore('stop_shot');
+    var ball_pocketing_acc = _getScore('ball_pocketing');
+    var wagon_wheel_acc = _getScore('wagon_wheel');
+    var user_grade = _getGrade();
+    var user_name = _getUserName();
   }
 
   @override
