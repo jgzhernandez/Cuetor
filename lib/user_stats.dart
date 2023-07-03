@@ -79,16 +79,6 @@ Future<String> _getGrade() async {
  }
 class _StatisticsPageState extends State<StatisticsPage> {
   @override
-  void initState() {
-    super.initState();
-    var stop_shot_acc = _getScore('stop_shot');
-    var ball_pocketing_acc = _getScore('ball_pocketing');
-    var wagon_wheel_acc = _getScore('wagon_wheel');
-    var user_grade = _getGrade();
-    var user_name = _getUserName();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
