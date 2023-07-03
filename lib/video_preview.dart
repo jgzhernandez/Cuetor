@@ -74,9 +74,10 @@ class _VideoPreviewState extends State<VideoPreview> {
 
     // Store metadata in firestore
     await FirebaseFirestore.instance.collection('${widget.folder}_videos').add({
+      'date': DateTime.timestamp(),
+      'title': '${DateTime.now()}.mp4',
       'uid': FirebaseAuth.instance.currentUser?.uid,
       'url': downloadURL,
-      'title': '${DateTime.now()}.mp4',
     });
   }
 
