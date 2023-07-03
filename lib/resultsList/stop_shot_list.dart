@@ -48,12 +48,12 @@ class _StopShotListState extends State<StopShotList> {
               final videoUrl = video?['url'];
               final videoScore = video?['score'];
               final videoTitle = video?['title'];
-              final videoShots = video?['scored shots'];
+              final scoredShots = video?['score_shots'];
 
               return ListTile(
-                title: Text('${videoTitle} \n '
-                'Score: ${videoScore.toString()} \n'  + 
-                '${videoShots}'),
+                title: Text('$videoTitle \n '
+                    'Score: ${videoScore.toString()} \n'
+                    'Scored Shots: ${scoredShots.toString()}'),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () {

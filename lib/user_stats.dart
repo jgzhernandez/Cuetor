@@ -37,46 +37,46 @@ Future<double> _getScore(String collection) async {
 }
 
 Future<String> _getGrade() async {
-    var stop_shot_acc = await _getScore('stop_shot');
-    var ball_pocketing_acc = await _getScore('ball_pocketing');
-    var wagon_wheel_acc = await _getScore('wagon_wheel');
-  var totalacc = stop_shot_acc + ball_pocketing_acc + wagon_wheel_acc;
-  String grade='Null';
-  
+  var stopShotAcc = await _getScore('stop_shot');
+  var ballPocketingAcc = await _getScore('ball_pocketing');
+  var wagonWheelAcc = await _getScore('wagon_wheel');
+  var totalacc = stopShotAcc + ballPocketingAcc + wagonWheelAcc;
+  String grade = 'Null';
+
   if (totalacc <= 75) {
     String grade = 'D';
     return grade;
   }
-  if (totalacc >= 76 && totalacc <= 150){
+  if (totalacc >= 76 && totalacc <= 150) {
     String grade = 'C';
     return grade;
   }
-  if (totalacc >= 151 && totalacc <= 225){
-    String grade ='B';
+  if (totalacc >= 151 && totalacc <= 225) {
+    String grade = 'B';
     return grade;
   }
-  if (totalacc >= 226){
+  if (totalacc >= 226) {
     String grade = 'A';
     return grade;
   }
- return grade;
- }
+  return grade;
+}
 
- Future<String> _getUserName() async {
+Future<String> _getUserName() async {
   String username = 'Null';
   await FirebaseFirestore.instance
-    .collection('users')
-    .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
-    .get()
-    .then((QuerySnapshot query) {
-      for (var doc in query.docs){
-        username = doc['userName'];
-        return username;
+      .collection('users')
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      .get()
+      .then((QuerySnapshot query) {
+    for (var doc in query.docs) {
+      username = doc['userName'];
+      return username;
     }
   });
   return username;
-  
- }
+}
+
 class _StatisticsPageState extends State<StatisticsPage> {
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
               Row(
                 children: [
                   const Text('User: '),
-                    FutureBuilder<String>(
+                  FutureBuilder<String>(
                     future: _getUserName(),
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cuetor/training.dart';
+import 'package:cuetor/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,17 @@ class _VideoPreviewState extends State<VideoPreview> {
     final path =
         'user/${FirebaseAuth.instance.currentUser?.uid}/files/videos/${widget.folder}/${DateTime.now()}.mp4';
     final ref = FirebaseStorage.instance.ref().child(path);
-    uploadTask = ref.putFile(videoFile);
+
+    final metadata = SettableMetadata(
+      contentType: 'video/mp4', // Set the content type of the file
+      customMetadata: {
+        'date': '${DateTime.timestamp()}',
+        'title': '${DateTime.now()}.mp4',
+        'uid': '${FirebaseAuth.instance.currentUser?.uid}',
+      },
+    );
+
+    uploadTask = ref.putFile(videoFile, metadata);
     final snapshot = await uploadTask.whenComplete(() {});
 
     // Get the download URL of the uploaded video
@@ -113,7 +123,8 @@ class _VideoPreviewState extends State<VideoPreview> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const TrainingPage(),
+              builder: (context) =>
+                  const CueTorHomePage(title: 'CueTor: Billiards Trainer'),
             ),
             (route) => false,
           );
