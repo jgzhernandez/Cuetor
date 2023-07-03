@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cuetor/training.dart';
+import 'package:cuetor/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +123,8 @@ class _VideoPreviewState extends State<VideoPreview> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const TrainingPage(),
+              builder: (context) =>
+                  const CueTorHomePage(title: 'CueTor: Billiards Trainer'),
             ),
             (route) => false,
           );
