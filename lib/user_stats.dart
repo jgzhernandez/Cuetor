@@ -28,10 +28,54 @@ Future<double> _getScore(String collection) async {
       totalSessions++;
     }
   });
-  double accuracyTemp = acc / (totalSessions * 10);
-  return accuracyTemp * 100;
+  double accuracyFinal = acc / (totalSessions * 10);
+  if (totalSessions == 0) {
+    accuracyFinal = 0;
+  }
+  return accuracyFinal * 100;
 }
 
+Future<String> _getGrade() async {
+    var stop_shot_acc = await _getScore('stop_shot');
+    var ball_pocketing_acc = await _getScore('ball_pocketing');
+    var wagon_wheel_acc = await _getScore('wagon_wheel');
+  var totalacc = stop_shot_acc + ball_pocketing_acc + wagon_wheel_acc;
+  String grade='ooo';
+  
+  if (totalacc <= 75) {
+    String grade = 'D';
+    return grade;
+  }
+  if (totalacc >= 76 && totalacc <= 150){
+    String grade = 'C';
+    return grade;
+  }
+  if (totalacc >= 151 && totalacc <= 225){
+    String grade ='B';
+    return grade;
+  }
+  if (totalacc >= 226){
+    String grade = 'A';
+    return grade;
+  }
+ return grade;
+ }
+
+ Future<String> _getUserName() async {
+  String username = 'l';
+  await FirebaseFirestore.instance
+    .collection('users')
+    .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+    .get()
+    .then((QuerySnapshot query) {
+      for (var doc in query.docs){
+        username = doc['userName'];
+        return username;
+    }
+  });
+  return username;
+  
+ }
 class _StatisticsPageState extends State<StatisticsPage> {
   @override
   void initState() {
@@ -39,6 +83,8 @@ class _StatisticsPageState extends State<StatisticsPage> {
     var stop_shot_acc = _getScore('stop_shot');
     var ball_pocketing_acc = _getScore('ball_pocketing');
     var wagon_wheel_acc = _getScore('wagon_wheel');
+    var user_grade = _getGrade();
+    var user_name = _getUserName();
   }
 
   @override
@@ -59,7 +105,20 @@ class _StatisticsPageState extends State<StatisticsPage> {
               Row(
                 children: [
                   const Text('User: '),
-                  Text(FirebaseAuth.instance.currentUser?.displayName ?? ''),
+                    FutureBuilder<String>(
+                    future: _getUserName(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        String name = snapshot.data ?? '';
+                        return Text(name);
+                      }
+                    },
+                  )
                 ],
               ),
               // email
@@ -74,6 +133,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 children: [
                   const Text('Player  Rating: '),
                   FutureBuilder<String>(
+                    future: _getGrade(),
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
