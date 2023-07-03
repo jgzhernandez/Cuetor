@@ -21,6 +21,7 @@ Future<double> _getScore(String collection) async {
   await FirebaseFirestore.instance
       .collection('${collection}_results')
       .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      .limit(10)
       .get()
       .then((QuerySnapshot query) {
     for (var doc in query.docs) {
@@ -40,7 +41,7 @@ Future<String> _getGrade() async {
     var ball_pocketing_acc = await _getScore('ball_pocketing');
     var wagon_wheel_acc = await _getScore('wagon_wheel');
   var totalacc = stop_shot_acc + ball_pocketing_acc + wagon_wheel_acc;
-  String grade='ooo';
+  String grade='Null';
   
   if (totalacc <= 75) {
     String grade = 'D';
@@ -62,7 +63,7 @@ Future<String> _getGrade() async {
  }
 
  Future<String> _getUserName() async {
-  String username = 'l';
+  String username = 'Null';
   await FirebaseFirestore.instance
     .collection('users')
     .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
