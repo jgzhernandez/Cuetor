@@ -25,10 +25,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoading = true;
     });
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+          )
+          .then((value) =>
+              value.user?.updateDisplayName(_userNameController.text));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Account created successfully!')),
@@ -39,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var newUser = ref.doc(FirebaseAuth.instance.currentUser?.uid);
 
       var data = {
-        "userName": _userNameController.text,
+        "displayName": _userNameController.text,
         "uid": FirebaseAuth.instance.currentUser?.uid,
         "email": _emailController.text
       };
