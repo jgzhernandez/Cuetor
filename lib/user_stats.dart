@@ -36,30 +36,30 @@ Future<double> _getScore(String collection) async {
 }
 
 Future<String> _getGrade() async {
-    var stop_shot_acc = await _getScore('stop_shot');
-    var ball_pocketing_acc = await _getScore('ball_pocketing');
-    var wagon_wheel_acc = await _getScore('wagon_wheel');
-  var totalacc = stop_shot_acc + ball_pocketing_acc + wagon_wheel_acc;
-  String grade='ooo';
-  
-  if (totalacc <= 75) {
+  var stopShotAcc = await _getScore('stop_shot');
+  var ballPocketingAcc = await _getScore('ball_pocketing');
+  var wagonWheelAcc = await _getScore('wagon_wheel');
+  var totalAccuracy = stopShotAcc + ballPocketingAcc + wagonWheelAcc;
+  String grade = 'ooo';
+
+  if (totalAccuracy <= 75) {
     String grade = 'D';
     return grade;
   }
-  if (totalacc >= 76 && totalacc <= 150){
+  if (totalAccuracy >= 76 && totalAccuracy <= 150) {
     String grade = 'C';
     return grade;
   }
-  if (totalacc >= 151 && totalacc <= 225){
-    String grade ='B';
+  if (totalAccuracy >= 151 && totalAccuracy <= 225) {
+    String grade = 'B';
     return grade;
   }
-  if (totalacc >= 226){
+  if (totalAccuracy >= 226) {
     String grade = 'A';
     return grade;
   }
- return grade;
- }
+  return grade;
+}
 
  Future<String> _getUserName() async {
   String username = 'l';
@@ -80,11 +80,11 @@ class _StatisticsPageState extends State<StatisticsPage> {
   @override
   void initState() {
     super.initState();
-    var stop_shot_acc = _getScore('stop_shot');
-    var ball_pocketing_acc = _getScore('ball_pocketing');
-    var wagon_wheel_acc = _getScore('wagon_wheel');
-    var user_grade = _getGrade();
-    var user_name = _getUserName();
+    var stopShotAcc = _getScore('stop_shot');
+    var ballPocketingAcc = _getScore('ball_pocketing');
+    var wagonWheelAcc = _getScore('wagon_wheel');
+    var userGrade = _getGrade();
+    var userName = _getUserName();
   }
 
   @override

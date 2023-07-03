@@ -66,7 +66,17 @@ class _VideoPreviewState extends State<VideoPreview> {
     final path =
         'user/${FirebaseAuth.instance.currentUser?.uid}/files/videos/${widget.folder}/${DateTime.now()}.mp4';
     final ref = FirebaseStorage.instance.ref().child(path);
-    uploadTask = ref.putFile(videoFile);
+
+    final metadata = SettableMetadata(
+      contentType: 'video/mp4', // Set the content type of the file
+      customMetadata: {
+        'date': '${DateTime.timestamp()}',
+        'title': '${DateTime.now()}.mp4',
+        'uid': '${FirebaseAuth.instance.currentUser?.uid}',
+      },
+    );
+
+    uploadTask = ref.putFile(videoFile, metadata);
     final snapshot = await uploadTask.whenComplete(() {});
 
     // Get the download URL of the uploaded video
