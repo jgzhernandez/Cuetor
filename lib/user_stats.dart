@@ -1,12 +1,13 @@
-import 'package:cuetor/resultsList/ballPocketingList.dart';
-import 'package:cuetor/resultsList/stopShotList.dart';
-import 'package:cuetor/resultsList/wagonWheelList.dart';
-import 'package:cuetor/videoGallery/ballPocketingVideoGallery.dart';
-import 'package:cuetor/videoGallery/stopShotVideoGallery.dart';
-import 'package:cuetor/videoGallery/wagonWheelVideoGallery.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuetor/resultsList/ball_pocketing_list.dart';
+import 'package:cuetor/resultsList/stop_shot_list.dart';
+import 'package:cuetor/resultsList/wagon_wheel_list.dart';
+import 'package:cuetor/videoGallery/ball_pocketing_video_gallery.dart';
+import 'package:cuetor/videoGallery/stop_shot_video_gallery.dart';
+import 'package:cuetor/videoGallery/wagon_wheel_video_gallery.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
 class StatisticsPage extends StatefulWidget {
   const StatisticsPage({super.key});
 
@@ -15,29 +16,29 @@ class StatisticsPage extends StatefulWidget {
 }
 
 Future<double> _getStopShotScore() async {
-
   double acc = 0;
-  int totalsessions = 0;
-  await FirebaseFirestore.instance.collection('stop_shot_results').where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid).get().then((QuerySnapshot query){
-     for (var doc in query.docs){
+  int totalSessions = 0;
+  await FirebaseFirestore.instance
+      .collection('stop_shot_results')
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+      .get()
+      .then((QuerySnapshot query) {
+    for (var doc in query.docs) {
       acc += doc['score'];
-      totalsessions++;
-   };
-  }
-  );
-  double accuracytemp = acc / (totalsessions*10);
-  return accuracytemp*100;
-
-
+      totalSessions++;
+    }
+  });
+  double accuracyTemp = acc / (totalSessions * 10);
+  return accuracyTemp * 100;
 }
-
 
 class _StatisticsPageState extends State<StatisticsPage> {
   @override
-    void initState() {
+  void initState() {
     super.initState();
     _getStopShotScore();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,11 +57,12 @@ class _StatisticsPageState extends State<StatisticsPage> {
 
               // User Statistics
               const Text('Statistics'),
-               FutureBuilder<double>(
+              FutureBuilder<double>(
                 future: _getStopShotScore(),
-                builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
+                builder:
+                    (BuildContext context, AsyncSnapshot<double> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -80,27 +82,25 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 },
               ),
               ListTile(
-                title: Text('Ball Pocketing Accuracy: %'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const BallPocketingList(),
-                    ),
-                  );
-                }
-              ),
+                  title: const Text('Ball Pocketing Accuracy: %'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BallPocketingList(),
+                      ),
+                    );
+                  }),
               ListTile(
-                title: Text('Wagon Wheel Accuracy: %'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WagonWheelList(),
-                    ),
-                  );
-                }
-              ),
+                  title: const Text('Wagon Wheel Accuracy: %'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WagonWheelList(),
+                      ),
+                    );
+                  }),
               const Divider(),
 
               // Video Gallery

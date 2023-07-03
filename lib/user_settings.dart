@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login/signInScreen.dart';
+
+import 'login/sign_in_screen.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -46,13 +47,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                           prefs.clear();
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignInScreen(),
-                            ),
-                            (route) => false,
-                          );
+                          if (context.mounted) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignInScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          }
                         },
                       ),
                     ],

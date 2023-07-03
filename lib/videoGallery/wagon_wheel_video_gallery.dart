@@ -1,19 +1,20 @@
-import 'package:cuetor/videoGallery/videoPlayer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuetor/videoGallery/video_player.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-class BallPocketingList extends StatefulWidget {
-  const BallPocketingList({super.key});
+
+class WagonWheelVideoGallery extends StatefulWidget {
+  const WagonWheelVideoGallery({super.key});
 
   @override
-  State<BallPocketingList> createState() => _BallPocketingListState();
+  State<WagonWheelVideoGallery> createState() => _WagonWheelVideoGalleryState();
 }
 
-class _BallPocketingListState extends State<BallPocketingList> {
+class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('ball_pocketing_results').doc(videoId).delete();
+    await FirebaseFirestore.instance.collection('videos').doc(videoId).delete();
     setState(() {});
   }
 
@@ -21,11 +22,12 @@ class _BallPocketingListState extends State<BallPocketingList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ball Pocketing Results'),
+        title: const Text('Wagon Wheel Videos'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('ball_pocketing_results').where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+            .collection('wagon_wheel_videos')
+            .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -41,11 +43,10 @@ class _BallPocketingListState extends State<BallPocketingList> {
 
               // Extract video data from the document
               final videoUrl = video?['url'];
-              final videoScore = video?['score'];
               final videoTitle = video?['title'];
 
               return ListTile(
-                title: Text(videoTitle + ' Score: ${videoScore.toString()}'),
+                title: Text(videoTitle),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () {

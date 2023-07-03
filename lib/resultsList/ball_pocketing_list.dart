@@ -1,19 +1,23 @@
-import 'package:cuetor/videoGallery/videoPlayer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuetor/videoGallery/video_player.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-class StopShotList extends StatefulWidget {
-  const StopShotList({super.key});
+
+class BallPocketingList extends StatefulWidget {
+  const BallPocketingList({super.key});
 
   @override
-  State<StopShotList> createState() => _StopShotListState();
+  State<BallPocketingList> createState() => _BallPocketingListState();
 }
 
-class _StopShotListState extends State<StopShotList> {
+class _BallPocketingListState extends State<BallPocketingList> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('stop_shot_results').doc(videoId).delete();
+    await FirebaseFirestore.instance
+        .collection('ball_pocketing_results')
+        .doc(videoId)
+        .delete();
     setState(() {});
   }
 
@@ -21,11 +25,12 @@ class _StopShotListState extends State<StopShotList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stop Shot Results'),
+        title: const Text('Ball Pocketing Results'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('stop_shot_results').where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+            .collection('ball_pocketing_results')
+            .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {

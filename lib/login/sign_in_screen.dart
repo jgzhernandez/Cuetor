@@ -1,55 +1,71 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'signInScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../home.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import '../home.dart';
+import 'password_reset_screen.dart';
+import 'sign_up_screen.dart';
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _userNameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
-  void _signup() async {
+  Future<void> getLandingPage() async {
+    StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.hasData && (!snapshot.data!.isAnonymous)) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const CueTorHomePage(
+                        title: 'CueTor: Billiards Trainer',
+                      )));
+        }
+        return const Scaffold();
+      },
+    );
+  }
+
+  void _login() async {
     setState(() {
       _isLoading = true;
     });
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created successfully!')),
-      );
-
-      var ref = FirebaseFirestore.instance.collection("users");
-      var newUser = ref.doc(FirebaseAuth.instance.currentUser?.uid);
-
-      var data = {
-        "userName": _userNameController.text,
-        "uid": FirebaseAuth.instance.currentUser?.uid,
-        "email": _emailController.text
-      };
-      newUser.set(data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("userName", _userNameController.text);
       prefs.setString("userID", FirebaseAuth.instance.currentUser!.uid);
-
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  const CueTorHomePage(title: 'CueTor: Billiards Trainer')));
+      FirebaseFirestore.instance
+          .collection("users")
+          .where("uid", isEqualTo: (FirebaseAuth.instance.currentUser!.uid))
+          .get()
+          .then((querySnapshot) {
+        for (var docSnapshot in querySnapshot.docs) {
+          String snrm = docSnapshot[2];
+          prefs.setString("userName", snrm);
+        }
+      });
+      if (context.mounted) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CueTorHomePage(
+                      title: 'CueTor: Billiards Trainer',
+                    )));
+      }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('An error occurred! ${e.code}')));
@@ -99,18 +115,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      controller: _userNameController,
-                      decoration: const InputDecoration(labelText: 'Username'),
-                      //keyboardType: TextInputType.userName,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your username.';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    TextFormField(
                       controller: _passwordController,
                       decoration: const InputDecoration(labelText: 'Password'),
                       obscureText: true,
@@ -130,18 +134,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? null
                               : () {
                                   if (_formKey.currentState!.validate()) {
-                                    _signup();
+                                    _login();
                                   }
                                 },
                           child: _isLoading
                               ? const CircularProgressIndicator()
-                              : const Text('Sign Up'),
+                              : const Text('Login'),
                         ),
-                        //SignInButton()
+                        //SignUpButton()
                       ],
                     ),
                     const SizedBox(height: 10),
-                    SignInButton()
+                    signUpButton(),
+                    const SizedBox(height: 10),
+                    resetPassButton()
                   ],
                 ),
               ),
@@ -152,20 +158,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Row SignInButton() {
+  Row signUpButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Already Have an account? "),
+        const Text("New user? "),
         GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SignInScreen()));
+                      builder: (context) => const SignUpScreen()));
             },
             child: const Text(
-              "Sign In",
+              "Create account",
+              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            ))
+      ],
+    );
+  }
+
+  Row resetPassButton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        //const Text("Need an account? "),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PasswordResetScreen()));
+            },
+            child: const Text(
+              "Forgot Password",
               style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
             ))
       ],

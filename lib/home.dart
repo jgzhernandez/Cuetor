@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:cuetor/training.dart';
-import 'package:cuetor/userstats.dart';
-import 'package:cuetor/usersettings.dart';
+import 'package:cuetor/user_settings.dart';
+import 'package:cuetor/user_stats.dart';
+import 'package:flutter/material.dart';
 
 class CueTorHomePage extends StatefulWidget {
   const CueTorHomePage({super.key, required this.title});

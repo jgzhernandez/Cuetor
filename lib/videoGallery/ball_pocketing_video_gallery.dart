@@ -1,8 +1,8 @@
-import 'package:cuetor/videoGallery/videoPlayer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuetor/videoGallery/video_player.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class BallPocketingVideoGallery extends StatefulWidget {
   const BallPocketingVideoGallery({super.key});

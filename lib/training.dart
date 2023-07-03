@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'exercises/stopshot.dart';
-import 'exercises/ballpocketing.dart';
-import 'exercises/wagonwheel.dart';
+
+import 'exercises/ball_pocketing.dart';
+import 'exercises/stop_shot.dart';
+import 'exercises/wagon_wheel.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({super.key});

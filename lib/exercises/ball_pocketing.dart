@@ -1,16 +1,17 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import '../videopreview.dart';
+import 'package:flutter/services.dart';
 
-class WagonWheel extends StatefulWidget {
-  const WagonWheel({super.key});
+import '../video_preview.dart';
+
+class BallPocketing extends StatefulWidget {
+  const BallPocketing({super.key});
 
   @override
-  State<WagonWheel> createState() => _WagonWheelState();
+  State<BallPocketing> createState() => _BallPocketingState();
 }
 
-class _WagonWheelState extends State<WagonWheel> {
+class _BallPocketingState extends State<BallPocketing> {
   late CameraController _cameraController;
   bool _isLoading = true;
   bool _isRecording = false;
@@ -40,10 +41,10 @@ class _WagonWheelState extends State<WagonWheel> {
         fullscreenDialog: true,
         builder: (_) => VideoPreview(
           filePath: file.path,
-          folder: 'wagon_wheel',
+          folder: 'ball_pocketing',
         ),
       );
-      Navigator.push(context, route);
+      if (context.mounted) Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();

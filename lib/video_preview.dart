@@ -1,9 +1,9 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cuetor/training.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
@@ -43,8 +43,7 @@ class _VideoPreviewState extends State<VideoPreview> {
   }
 
   Widget _buildVideoPlayer() {
-    if (_videoPlayerController != null &&
-        _videoPlayerController.value.isInitialized) {
+    if (_videoPlayerController.value.isInitialized) {
       return Center(
           child: AspectRatio(
         aspectRatio: _videoPlayerController.value.aspectRatio,

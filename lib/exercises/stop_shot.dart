@@ -1,16 +1,17 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import '../videopreview.dart';
+import 'package:flutter/services.dart';
 
-class BallPocketing extends StatefulWidget {
-  const BallPocketing({super.key});
+import '../video_preview.dart';
+
+class StopShot extends StatefulWidget {
+  const StopShot({super.key});
 
   @override
-  State<BallPocketing> createState() => _BallPocketingState();
+  State<StopShot> createState() => _StopShotState();
 }
 
-class _BallPocketingState extends State<BallPocketing> {
+class _StopShotState extends State<StopShot> {
   late CameraController _cameraController;
   bool _isLoading = true;
   bool _isRecording = false;
@@ -40,10 +41,10 @@ class _BallPocketingState extends State<BallPocketing> {
         fullscreenDialog: true,
         builder: (_) => VideoPreview(
           filePath: file.path,
-          folder: 'ball_pocketing',
+          folder: 'stop_shot',
         ),
       );
-      Navigator.push(context, route);
+      if (context.mounted) Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();

@@ -1,20 +1,23 @@
-import 'package:cuetor/videoGallery/videoPlayer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cuetor/videoGallery/video_player.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class WagonWheelVideoGallery extends StatefulWidget {
-  const WagonWheelVideoGallery({super.key});
+class WagonWheelList extends StatefulWidget {
+  const WagonWheelList({super.key});
 
   @override
-  State<WagonWheelVideoGallery> createState() => _WagonWheelVideoGalleryState();
+  State<WagonWheelList> createState() => _WagonWheelListState();
 }
 
-class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
+class _WagonWheelListState extends State<WagonWheelList> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('videos').doc(videoId).delete();
+    await FirebaseFirestore.instance
+        .collection('wagon_wheel_results')
+        .doc(videoId)
+        .delete();
     setState(() {});
   }
 
@@ -22,11 +25,11 @@ class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wagon Wheel Videos'),
+        title: const Text('Wagon Wheel Results'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('wagon_wheel_videos')
+            .collection('wagon_wheel_results')
             .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
@@ -43,10 +46,11 @@ class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
 
               // Extract video data from the document
               final videoUrl = video?['url'];
+              final videoScore = video?['score'];
               final videoTitle = video?['title'];
 
               return ListTile(
-                title: Text(videoTitle),
+                title: Text(videoTitle + ' Score: ${videoScore.toString()}'),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () {

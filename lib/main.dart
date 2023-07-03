@@ -1,11 +1,12 @@
-import 'package:cuetor/login/signInScreen.dart';
+import 'package:cuetor/login/sign_in_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/services.dart';
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../home.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,17 +20,17 @@ Future<void> main() async {
     runApp(
       const CueTor(),
     );
+    _init();
   });
-  _init();
 }
 
 _init() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final token = prefs.getString("userID");
   if (token != null) {
-    Get.offAll(const CueTorHomePage(title: 'CueTor: Billiards Trainer'));
+    Get.offAll(() => const CueTorHomePage(title: 'CueTor: Billiards Trainer'));
   } else {
-    Get.offAll(const SignInScreen());
+    Get.offAll(() => const SignInScreen());
   }
 }
 

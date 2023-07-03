@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'signInScreen.dart';
+
+import 'sign_in_screen.dart';
 
 class PasswordResetScreen extends StatefulWidget {
   const PasswordResetScreen({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
   final _emailController = TextEditingController();
   bool _isLoading = false;
 
-  void _resetpass() async {
+  void _resetPass() async {
     setState(() {
       _isLoading = true;
     });
@@ -22,11 +23,13 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
       await FirebaseAuth.instance.sendPasswordResetEmail(
         email: _emailController.text,
       );
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Reset email sent!')));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Reset email sent!')));
+      }
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('An error occured! ${e.code}')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred! ${e.code}')));
     } finally {
       setState(() {
         _isLoading = false;
@@ -77,7 +80,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                               ? null
                               : () {
                                   if (_formKey.currentState!.validate()) {
-                                    _resetpass();
+                                    _resetPass();
                                   }
                                 },
                           child: _isLoading
@@ -87,7 +90,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    SignInButton()
+                    signInButton()
                   ],
                 ),
               ),
@@ -98,7 +101,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
     );
   }
 
-  Row SignInButton() {
+  Row signInButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

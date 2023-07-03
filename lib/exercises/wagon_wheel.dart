@@ -1,16 +1,17 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import '../videopreview.dart';
+import 'package:flutter/services.dart';
 
-class StopShot extends StatefulWidget {
-  const StopShot({super.key});
+import '../video_preview.dart';
+
+class WagonWheel extends StatefulWidget {
+  const WagonWheel({super.key});
 
   @override
-  State<StopShot> createState() => _StopShotState();
+  State<WagonWheel> createState() => _WagonWheelState();
 }
 
-class _StopShotState extends State<StopShot> {
+class _WagonWheelState extends State<WagonWheel> {
   late CameraController _cameraController;
   bool _isLoading = true;
   bool _isRecording = false;
@@ -40,10 +41,10 @@ class _StopShotState extends State<StopShot> {
         fullscreenDialog: true,
         builder: (_) => VideoPreview(
           filePath: file.path,
-          folder: 'stop_shot',
+          folder: 'wagon_wheel',
         ),
       );
-      Navigator.push(context, route);
+      if (context.mounted) Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();
