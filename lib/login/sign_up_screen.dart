@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var newUser = ref.doc(FirebaseAuth.instance.currentUser?.uid);
 
       var data = {
-        "displayName": _userNameController.text,
+        "userName": _userNameController.text,
         "uid": FirebaseAuth.instance.currentUser?.uid,
         "email": _emailController.text
       };
