@@ -14,7 +14,10 @@ class WagonWheelVideoGallery extends StatefulWidget {
 class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('videos').doc(videoId).delete();
+    await FirebaseFirestore.instance
+        .collection('wagon_wheel_results')
+        .doc(videoId)
+        .delete();
     setState(() {});
   }
 
@@ -26,7 +29,7 @@ class _WagonWheelVideoGalleryState extends State<WagonWheelVideoGallery> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('wagon_wheel_videos')
+            .collection('wagon_wheel_results')
             .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {

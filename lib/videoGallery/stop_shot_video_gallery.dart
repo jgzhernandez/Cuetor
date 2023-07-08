@@ -14,7 +14,10 @@ class StopShotVideoGallery extends StatefulWidget {
 class _StopShotVideoGalleryState extends State<StopShotVideoGallery> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('videos').doc(videoId).delete();
+    await FirebaseFirestore.instance
+        .collection('stop_shot_results')
+        .doc(videoId)
+        .delete();
     setState(() {});
   }
 
@@ -26,7 +29,7 @@ class _StopShotVideoGalleryState extends State<StopShotVideoGallery> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('stop_shot_videos')
+            .collection('stop_shot_results')
             .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
@@ -67,7 +70,9 @@ class _StopShotVideoGalleryState extends State<StopShotVideoGallery> {
                             child: const Text('Delete'),
                             onPressed: () async {
                               _deleteVideo(video!.id, videoUrl).then((_) {
-                                Navigator.of(context).pop();
+                                setState(() {
+                                  Navigator.of(context).pop();
+                                });
                               });
                             },
                           ),

@@ -15,7 +15,10 @@ class BallPocketingVideoGallery extends StatefulWidget {
 class _BallPocketingVideoGalleryState extends State<BallPocketingVideoGallery> {
   Future<void> _deleteVideo(String videoId, String videoUrl) async {
     await FirebaseStorage.instance.refFromURL(videoUrl).delete();
-    await FirebaseFirestore.instance.collection('videos').doc(videoId).delete();
+    await FirebaseFirestore.instance
+        .collection('ball_pocketing_results')
+        .doc(videoId)
+        .delete();
     setState(() {});
   }
 
@@ -27,7 +30,7 @@ class _BallPocketingVideoGalleryState extends State<BallPocketingVideoGallery> {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('ball_pocketing_videos')
+            .collection('ball_pocketing_results')
             .where('uid', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
             .snapshots(),
         builder: (context, snapshot) {
