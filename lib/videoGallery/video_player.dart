@@ -4,20 +4,21 @@ import 'package:video_player/video_player.dart';
 class VideoPlayerPage extends StatefulWidget {
   final String videoUrl;
 
-  const VideoPlayerPage({super.key, required this.videoUrl});
+  const VideoPlayerPage({Key? key, required this.videoUrl}) : super(key: key);
 
   @override
   State<VideoPlayerPage> createState() => _VideoPlayerPageState();
 }
 
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
-  late VideoPlayerController _controller;
+  late VideoPlayerController _videoPlayerController;
   late Future<void> _initializeVideoPlayerFuture;
 
   @override
   void initState() {
-    _controller = VideoPlayerController.network(widget.videoUrl);
-    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _initializeVideoPlayerFuture =
+        _videoPlayerController.initialize().then((_) {
       setState(() {}); // Trigger a rebuild once the video is initialized
     });
     super.initState();
@@ -25,7 +26,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -39,34 +40,22 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         future: _initializeVideoPlayerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final videoPlayerWidth = constraints.maxWidth;
-                final videoPlayerHeight =
-                    videoPlayerWidth / _controller.value.aspectRatio;
-
-                return SizedBox(
-                  width: videoPlayerWidth,
-                  height: videoPlayerHeight,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              child: AspectRatio(
-                                aspectRatio: _controller.value.aspectRatio,
-                                child: VideoPlayer(_controller),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      VideoPlayerControls(controller: _controller),
-                    ],
+            return Stack(
+              children: [
+                Center(
+                  child: AspectRatio(
+                    aspectRatio: _videoPlayerController.value.aspectRatio,
+                    child: VideoPlayer(_videoPlayerController),
                   ),
-                );
-              },
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child:
+                      VideoPlayerControls(controller: _videoPlayerController),
+                ),
+              ],
             );
           } else {
             return const Center(
@@ -82,7 +71,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 class VideoPlayerControls extends StatelessWidget {
   final VideoPlayerController controller;
 
-  const VideoPlayerControls({super.key, required this.controller});
+  const VideoPlayerControls({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,16 +83,21 @@ class VideoPlayerControls extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                icon: Icon(controller.value.isPlaying
-                    ? Icons.pause
-                    : Icons.play_arrow),
-                onPressed: () {
-                  if (controller.value.isPlaying) {
-                    controller.pause();
-                  } else {
-                    controller.play();
-                  }
+              ValueListenableBuilder(
+                valueListenable: controller,
+                builder: (context, value, child) {
+                  return IconButton(
+                    icon: Icon(
+                      value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    ),
+                    onPressed: () {
+                      if (value.isPlaying) {
+                        controller.pause();
+                      } else {
+                        controller.play();
+                      }
+                    },
+                  );
                 },
               ),
               IconButton(
@@ -123,7 +118,8 @@ class VideoPlayerControls extends StatelessWidget {
 class VideoProgressBar extends StatefulWidget {
   final VideoPlayerController controller;
 
-  const VideoProgressBar({super.key, required this.controller});
+  const VideoProgressBar({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   State<VideoProgressBar> createState() => _VideoProgressBarState();
